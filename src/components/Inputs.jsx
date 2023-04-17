@@ -1,13 +1,21 @@
-import React, { useState } from "react";
-import memesData from "../data.js";
+import React, { useState, useEffect } from "react";
 
 export const Inputs = () => {
   const [meme, setMeme] = useState({
-    topText: "",
-    bottomText: "",
+    topText: "one does not simply",
+    bottomText: "walk into mordor",
     randomImg: "http://i.imgflip.com/1bij.jpg",
   });
-  const [allMemeImages, setAllMemeImages] = useState(memesData);
+  const [allMeme, setAllMeme] = useState({});
+
+  useEffect(() => {
+    async function getMemes() {
+      const res = await fetch("https://api.imgflip.com/get_memes");
+      const data = res.json();
+      setAllMeme(data);
+    }
+    getMemes();
+  }, []);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -18,13 +26,11 @@ export const Inputs = () => {
 
   function getMemeImages() {
     const randomMeme =
-      allMemeImages.data.memes[
-        Math.floor(Math.random() * allMemeImages.data.memes.length)
-      ];
+      allMeme.data.memes[Math.floor(Math.random() * allMeme.data.memes.length)];
     setMeme((prevMeme) => ({ ...prevMeme, randomImg: randomMeme.url }));
   }
   return (
-    <div className="px-4 pt-9">
+    <div className="px-4">
       <div className="mb-5 mt-9 grid grid-cols-2 grid-rows-2 gap-4">
         <input
           type="text"
