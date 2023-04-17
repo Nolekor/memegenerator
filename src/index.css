@@ -5,5 +5,13 @@
 @layer base {
   html {
     font-family: "Karla", sans-serif;
+    max-width: 550px;
+    margin: auto;
+  }
+  h2 {
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+      -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000,
+      2px 2px 5px #000;
+    font-family: impact, sans-serif;
   }
 }
